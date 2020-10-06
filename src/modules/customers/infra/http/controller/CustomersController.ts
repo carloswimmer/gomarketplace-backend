@@ -5,7 +5,13 @@ import CreateCustomerService from '@modules/customers/services/CreateCustomerSer
 import { container } from 'tsyringe';
 
 export default class CustomersController {
+  private createCustomer = container.resolve(CreateCustomerService);
+
   public async create(request: Request, response: Response): Promise<Response> {
-    // TODO
+    const { name, email } = request.body;
+
+    const customer = await this.createCustomer.execute({ name, email });
+
+    return response.json(customer);
   }
 }
