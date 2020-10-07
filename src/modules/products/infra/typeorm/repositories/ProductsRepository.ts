@@ -55,7 +55,7 @@ class ProductsRepository implements IProductsRepository {
       const productSold = products.find(item => item.id === product.id);
 
       if (productSold) {
-        updated.quantity = -productSold.quantity;
+        updated.quantity -= productSold.quantity;
 
         productsUpdated.push(updated);
 
