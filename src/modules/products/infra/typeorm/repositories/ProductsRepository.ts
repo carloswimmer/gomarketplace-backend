@@ -49,7 +49,7 @@ class ProductsRepository implements IProductsRepository {
 
     const productsUpdated: Product[] = [];
 
-    productsUpdatable.forEach(async product => {
+    const updates = productsUpdatable.map(async product => {
       const updated: Product = { ...product };
 
       const productSold = products.find(item => item.id === product.id);
@@ -62,6 +62,8 @@ class ProductsRepository implements IProductsRepository {
         await this.ormRepository.save(updated);
       }
     });
+
+    await Promise.all(updates);
 
     return productsUpdated;
   }
